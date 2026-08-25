@@ -1,1290 +1,2883 @@
 <!DOCTYPE html>
+
 <html lang="id">
+
 <head>
+
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<meta name="theme-color" content="#050510">
-<title>AM Premium • Futuristic</title>
+
+<meta name="theme-color" content="#04040c">
+
+<meta name="description" content="AM Premium Futuristic Verification System">
+
+<title>AM Premium • Ryuze</title>
 
 <style>
+
 *{
+
   box-sizing:border-box;
+
   margin:0;
+
   padding:0;
+
   -webkit-tap-highlight-color:transparent
+
 }
 
 :root{
-  --bg:#050510;
-  --cyan:#54f6ff;
-  --blue:#5865ff;
-  --purple:#a855ff;
-  --pink:#ff42d0;
-  --green:#58ffb0;
-  --text:#fff;
-  --muted:#85859a;
-  --line:rgba(255,255,255,.09)
+
+  --bg:#030309;
+
+  --card:rgba(15,15,28,.72);
+
+  --cyan:#5cf7ff;
+
+  --blue:#6674ff;
+
+  --purple:#a45cff;
+
+  --pink:#ff4bd8;
+
+  --green:#62ffb4;
+
+  --white:#fff;
+
+  --muted:#85859b;
+
+  --line:rgba(255,255,255,.09);
+
 }
 
 html{
+
   scroll-behavior:smooth
+
 }
 
 body{
+
   min-height:100vh;
+
   overflow-x:hidden;
-  color:var(--text);
-  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Inter",sans-serif;
+
+  color:var(--white);
+
+  font-family:
+
+    -apple-system,
+
+    BlinkMacSystemFont,
+
+    "SF Pro Display",
+
+    "Inter",
+
+    sans-serif;
+
   background:
-    radial-gradient(circle at 50% -10%,rgba(103,70,255,.38),transparent 35%),
-    radial-gradient(circle at -10% 40%,rgba(0,240,255,.16),transparent 30%),
-    radial-gradient(circle at 110% 70%,rgba(255,0,200,.13),transparent 30%),
-    #050510;
+
+    radial-gradient(
+
+      circle at 50% -10%,
+
+      rgba(111,74,255,.42),
+
+      transparent 35%
+
+    ),
+
+    radial-gradient(
+
+      circle at -10% 35%,
+
+      rgba(0,240,255,.16),
+
+      transparent 30%
+
+    ),
+
+    radial-gradient(
+
+      circle at 110% 65%,
+
+      rgba(255,0,200,.14),
+
+      transparent 30%
+
+    ),
+
+    #030309;
+
 }
 
-/* BACKGROUND */
+/* =========================
 
-body:before{
-  content:"";
+   AMBIENT BACKGROUND
+
+========================= */
+
+.ambient{
+
   position:fixed;
+
   inset:0;
-  pointer-events:none;
-  z-index:-3;
-  opacity:.18;
-  background-image:
-    linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);
-  background-size:40px 40px;
-  mask-image:linear-gradient(to bottom,black,transparent 85%);
-}
 
-body:after{
-  content:"";
-  position:fixed;
-  width:500px;
-  height:500px;
-  left:50%;
-  top:5%;
-  transform:translateX(-50%);
-  border-radius:50%;
-  background:rgba(113,77,255,.15);
-  filter:blur(120px);
-  pointer-events:none;
-  z-index:-2;
-}
+  z-index:-5;
 
-/* PARTICLES */
-
-.particles{
-  position:fixed;
-  inset:0;
   overflow:hidden;
+
   pointer-events:none;
-  z-index:-1;
+
+}
+
+.blob{
+
+  position:absolute;
+
+  border-radius:50%;
+
+  filter:blur(80px);
+
+  opacity:.25;
+
+  animation:blobMove 14s ease-in-out infinite alternate;
+
+}
+
+.blob.one{
+
+  width:300px;
+
+  height:300px;
+
+  background:#5146ff;
+
+  top:5%;
+
+  left:-100px;
+
+}
+
+.blob.two{
+
+  width:280px;
+
+  height:280px;
+
+  background:#00eaff;
+
+  top:45%;
+
+  right:-100px;
+
+  animation-delay:-4s;
+
+}
+
+.blob.three{
+
+  width:300px;
+
+  height:300px;
+
+  background:#ff22c8;
+
+  bottom:-100px;
+
+  left:30%;
+
+  animation-delay:-8s;
+
+}
+
+@keyframes blobMove{
+
+  0%{
+
+    transform:translate(0,0) scale(1);
+
+  }
+
+  50%{
+
+    transform:translate(50px,-30px) scale(1.15);
+
+  }
+
+  100%{
+
+    transform:translate(-30px,40px) scale(.9);
+
+  }
+
+}
+
+.grid-bg{
+
+  position:fixed;
+
+  inset:0;
+
+  z-index:-4;
+
+  pointer-events:none;
+
+  opacity:.13;
+
+  background-image:
+
+    linear-gradient(
+
+      rgba(255,255,255,.04) 1px,
+
+      transparent 1px
+
+    ),
+
+    linear-gradient(
+
+      90deg,
+
+      rgba(255,255,255,.04) 1px,
+
+      transparent 1px
+
+    );
+
+  background-size:42px 42px;
+
+  mask-image:
+
+    linear-gradient(
+
+      to bottom,
+
+      black,
+
+      transparent 90%
+
+    );
+
+}
+
+/* =========================
+
+   PARTICLES
+
+========================= */
+
+#particles{
+
+  position:fixed;
+
+  inset:0;
+
+  z-index:-2;
+
+  overflow:hidden;
+
+  pointer-events:none;
+
 }
 
 .particle{
+
   position:absolute;
-  width:2px;
-  height:2px;
+
   border-radius:50%;
+
   background:#fff;
-  box-shadow:0 0 10px var(--cyan);
-  animation:float 7s linear infinite;
-  opacity:.7;
+
+  box-shadow:
+
+    0 0 8px var(--cyan),
+
+    0 0 18px var(--purple);
+
+  animation:particleFloat linear infinite;
+
 }
 
-@keyframes float{
-  from{
-    transform:translateY(110vh) scale(.5);
-    opacity:0
+@keyframes particleFloat{
+
+  0%{
+
+    transform:translateY(110vh) scale(.3);
+
+    opacity:0;
+
   }
-  20%{opacity:.8}
-  80%{opacity:.8}
-  to{
+
+  15%{
+
+    opacity:.8;
+
+  }
+
+  80%{
+
+    opacity:.7;
+
+  }
+
+  100%{
+
     transform:translateY(-10vh) scale(1.5);
-    opacity:0
+
+    opacity:0;
+
   }
+
 }
 
-/* WELCOME OVERLAY */
+/* =========================
+
+   WELCOME
+
+========================= */
 
 .welcome-overlay{
+
   position:fixed;
+
   inset:0;
-  z-index:9999;
+
+  z-index:99999;
+
   display:flex;
+
   align-items:center;
+
   justify-content:center;
-  padding:20px;
+
+  padding:18px;
+
   background:
-    radial-gradient(circle at center,rgba(93,63,255,.24),transparent 45%),
-    rgba(3,3,10,.88);
-  backdrop-filter:blur(18px);
-  animation:overlayIn .7s ease;
+
+    radial-gradient(
+
+      circle at center,
+
+      rgba(104,73,255,.25),
+
+      transparent 48%
+
+    ),
+
+    rgba(2,2,8,.92);
+
+  backdrop-filter:blur(25px);
+
+  -webkit-backdrop-filter:blur(25px);
+
+  animation:welcomeIn .7s ease;
+
 }
 
-@keyframes overlayIn{
-  from{opacity:0}
-  to{opacity:1}
+@keyframes welcomeIn{
+
+  from{
+
+    opacity:0;
+
+  }
+
+  to{
+
+    opacity:1;
+
+  }
+
 }
 
 .welcome-card{
+
   position:relative;
-  width:min(440px,100%);
-  padding:34px 24px 26px;
-  overflow:hidden;
+
+  width:min(470px,100%);
+
+  padding:38px 24px 28px;
+
   text-align:center;
-  border:1px solid rgba(255,255,255,.13);
-  border-radius:30px;
+
+  overflow:hidden;
+
+  border:1px solid rgba(255,255,255,.14);
+
+  border-radius:32px;
+
   background:
+
     linear-gradient(
+
       145deg,
-      rgba(29,27,55,.94),
-      rgba(7,7,16,.96)
+
+      rgba(30,28,58,.95),
+
+      rgba(6,6,15,.98)
+
     );
+
   box-shadow:
-    0 0 35px rgba(104,76,255,.22),
-    0 0 100px rgba(104,76,255,.12),
+
+    0 30px 100px rgba(0,0,0,.65),
+
+    0 0 50px rgba(105,73,255,.24),
+
     inset 0 1px rgba(255,255,255,.08);
+
+  animation:cardFloat 5s ease-in-out infinite;
+
+}
+
+@keyframes cardFloat{
+
+  50%{
+
+    transform:translateY(-6px);
+
+  }
+
 }
 
 .welcome-card:before{
-  content:"";
-  position:absolute;
-  width:240px;
-  height:240px;
-  left:50%;
-  top:-170px;
-  transform:translateX(-50%);
-  border-radius:50%;
-  background:var(--purple);
-  filter:blur(80px);
-  opacity:.3;
-}
 
-.welcome-card:after{
   content:"";
+
   position:absolute;
-  inset:0;
-  pointer-events:none;
-  border-radius:30px;
-  box-shadow:
-    inset 0 0 30px rgba(84,246,255,.035);
+
+  width:300px;
+
+  height:300px;
+
+  left:50%;
+
+  top:-220px;
+
+  transform:translateX(-50%);
+
+  border-radius:50%;
+
+  background:var(--purple);
+
+  filter:blur(90px);
+
+  opacity:.35;
+
 }
 
 .welcome-icon{
+
   position:relative;
-  width:72px;
-  height:72px;
+
+  width:82px;
+
+  height:82px;
+
   margin:auto;
+
   display:grid;
+
   place-items:center;
-  border-radius:23px;
-  font-size:31px;
+
+  border-radius:26px;
+
+  font-size:34px;
+
   background:
-    linear-gradient(135deg,#58f6ff,#7258ff,#ff4bd5);
+
+    linear-gradient(
+
+      135deg,
+
+      var(--cyan),
+
+      var(--blue),
+
+      var(--purple),
+
+      var(--pink)
+
+    );
+
   box-shadow:
-    0 0 20px rgba(84,246,255,.35),
-    0 0 60px rgba(168,85,255,.3);
-  animation:iconPulse 2s infinite;
+
+    0 0 30px rgba(84,246,255,.35),
+
+    0 0 80px rgba(168,85,255,.3);
+
+  animation:iconPulse 2.2s ease-in-out infinite;
+
 }
 
 @keyframes iconPulse{
-  0%,100%{transform:scale(1);box-shadow:0 0 20px rgba(84,246,255,.35)}
-  50%{transform:scale(1.05);box-shadow:0 0 35px rgba(168,85,255,.55)}
+
+  50%{
+
+    transform:scale(1.07) rotate(3deg);
+
+    box-shadow:
+
+      0 0 45px rgba(84,246,255,.5),
+
+      0 0 100px rgba(168,85,255,.4);
+
+  }
+
 }
 
 .welcome-small{
+
   position:relative;
-  margin-top:20px;
+
+  margin-top:22px;
+
   color:#77778d;
+
   font-size:7px;
+
   font-weight:950;
+
   letter-spacing:3px;
+
 }
 
 .welcome-title{
+
   position:relative;
-  margin-top:10px;
+
+  margin-top:11px;
+
   font-size:24px;
-  line-height:1.15;
+
+  line-height:1.16;
+
   font-weight:950;
-  letter-spacing:-.8px;
+
+  letter-spacing:-1px;
+
 }
 
-.welcome-title span{
-  background:linear-gradient(
-    90deg,
-    var(--cyan),
-    var(--purple),
-    var(--pink)
-  );
+.gradient-text{
+
+  background:
+
+    linear-gradient(
+
+      90deg,
+
+      var(--cyan),
+
+      var(--purple),
+
+      var(--pink),
+
+      var(--cyan)
+
+    );
+
+  background-size:300%;
+
   -webkit-background-clip:text;
+
   background-clip:text;
+
   color:transparent;
-  background-size:200%;
-  animation:gradientMove 3s linear infinite;
+
+  animation:gradientMove 4s linear infinite;
+
 }
 
 @keyframes gradientMove{
-  to{background-position:200%}
+
+  to{
+
+    background-position:300%;
+
+  }
+
 }
 
 .welcome-desc{
+
   position:relative;
-  margin:13px auto 0;
-  max-width:310px;
+
+  margin:14px auto 0;
+
+  max-width:330px;
+
   color:#77778a;
+
   font-size:9px;
-  line-height:1.7;
+
+  line-height:1.8;
+
 }
 
 .welcome-btn{
+
   position:relative;
+
   width:100%;
-  height:48px;
-  margin-top:23px;
+
+  height:50px;
+
+  margin-top:25px;
+
   border:0;
-  border-radius:15px;
-  color:#fff;
-  background:
-    linear-gradient(
-      90deg,
-      #5865ff,
-      #9b4dff,
-      #e447ca
-    );
-  background-size:200%;
+
+  border-radius:16px;
+
+  color:white;
+
   font-family:inherit;
+
   font-size:9px;
+
   font-weight:950;
+
+  background:
+
+    linear-gradient(
+
+      90deg,
+
+      var(--blue),
+
+      var(--purple),
+
+      var(--pink),
+
+      var(--blue)
+
+    );
+
+  background-size:300%;
+
   cursor:pointer;
+
   box-shadow:
-    0 10px 35px rgba(106,75,255,.28),
-    0 0 25px rgba(106,75,255,.12);
-  animation:buttonGlow 3s linear infinite;
+
+    0 15px 45px rgba(100,75,255,.35);
+
+  animation:
+
+    buttonGradient 4s linear infinite;
+
+  transition:.25s;
+
 }
 
-@keyframes buttonGlow{
-  50%{background-position:100%}
+@keyframes buttonGradient{
+
+  to{
+
+    background-position:300%;
+
+  }
+
+}
+
+.welcome-btn:hover{
+
+  transform:translateY(-3px);
+
+  box-shadow:
+
+    0 20px 60px rgba(100,75,255,.45);
+
 }
 
 .welcome-btn:active{
-  transform:scale(.97)
+
+  transform:scale(.97);
+
 }
 
 .welcome-footer{
+
   position:relative;
-  margin-top:13px;
+
+  margin-top:14px;
+
   color:#454555;
+
   font-size:6px;
-  letter-spacing:1.5px;
+
+  letter-spacing:2px;
+
 }
 
-/* CONTAINER */
+/* =========================
+
+   CONTAINER
+
+========================= */
 
 .container{
-  width:min(920px,100%);
+
+  width:min(1000px,100%);
+
   margin:auto;
-  padding-bottom:70px;
+
+  padding-bottom:80px;
+
 }
 
-/* HERO */
+/* =========================
+
+   HERO
+
+========================= */
 
 .hero{
+
   position:relative;
-  min-height:360px;
-  padding:40px 22px 38px;
+
+  min-height:450px;
+
+  padding:50px 22px 48px;
+
   display:flex;
+
   align-items:flex-end;
+
   overflow:hidden;
+
   border-bottom:1px solid rgba(255,255,255,.07);
-}
 
-.hero-grid{
-  position:absolute;
-  inset:0;
-  opacity:.22;
-  background-image:
-    linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);
-  background-size:38px 38px;
-  mask-image:linear-gradient(to bottom,black,transparent);
-}
-
-.hero-orb{
-  position:absolute;
-  width:500px;
-  height:500px;
-  right:-190px;
-  top:-290px;
-  border-radius:50%;
-  background:
-    radial-gradient(
-      circle,
-      rgba(84,246,255,.4),
-      rgba(168,85,255,.15) 38%,
-      transparent 70%
-    );
-  filter:blur(8px);
-  animation:orb 7s ease-in-out infinite;
-}
-
-@keyframes orb{
-  50%{transform:translate(-25px,20px) scale(1.08)}
 }
 
 .hero:after{
+
   content:"";
+
   position:absolute;
+
   inset:0;
+
   background:
+
     linear-gradient(
+
       to top,
-      #050510 0%,
-      rgba(5,5,16,.72) 35%,
+
+      #030309 0%,
+
+      rgba(3,3,9,.75) 32%,
+
       transparent 80%
-    )
+
+    );
+
+}
+
+.hero-orb{
+
+  position:absolute;
+
+  width:600px;
+
+  height:600px;
+
+  right:-230px;
+
+  top:-360px;
+
+  border-radius:50%;
+
+  background:
+
+    radial-gradient(
+
+      circle,
+
+      rgba(84,246,255,.5),
+
+      rgba(168,85,255,.2) 40%,
+
+      transparent 70%
+
+    );
+
+  filter:blur(7px);
+
+  animation:orbMove 8s ease-in-out infinite;
+
+}
+
+@keyframes orbMove{
+
+  50%{
+
+    transform:
+
+      translate(-30px,35px)
+
+      scale(1.1);
+
+  }
+
 }
 
 .hero-content{
+
   position:relative;
-  z-index:2;
+
+  z-index:3;
+
   width:100%;
-  animation:heroIn .8s ease;
+
+  animation:heroContent .8s ease;
+
 }
 
-@keyframes heroIn{
-  from{opacity:0;transform:translateY(20px)}
-  to{opacity:1;transform:translateY(0)}
+@keyframes heroContent{
+
+  from{
+
+    opacity:0;
+
+    transform:translateY(25px);
+
+  }
+
+  to{
+
+    opacity:1;
+
+    transform:translateY(0);
+
+  }
+
 }
 
 .status-pill{
+
   display:inline-flex;
+
   align-items:center;
+
   gap:8px;
-  padding:9px 13px;
-  margin-bottom:15px;
+
+  padding:9px 14px;
+
+  margin-bottom:16px;
+
   border:1px solid rgba(84,246,255,.2);
+
   border-radius:30px;
-  background:rgba(84,246,255,.055);
+
   color:#b9faff;
+
+  background:rgba(84,246,255,.055);
+
   font-size:8px;
+
   font-weight:950;
-  letter-spacing:1.5px;
-  box-shadow:0 0 25px rgba(84,246,255,.05);
+
+  letter-spacing:1.6px;
+
+  box-shadow:
+
+    0 0 30px rgba(84,246,255,.06);
+
 }
 
 .status-dot{
+
   width:6px;
+
   height:6px;
+
   border-radius:50%;
+
   background:var(--green);
-  box-shadow:0 0 12px var(--green);
+
+  box-shadow:
+
+    0 0 12px var(--green);
+
   animation:pulse 1.5s infinite;
+
 }
 
 @keyframes pulse{
-  50%{opacity:.35;transform:scale(.7)}
+
+  50%{
+
+    opacity:.3;
+
+    transform:scale(.65);
+
+  }
+
 }
 
 .logo{
-  font-size:55px;
-  line-height:1;
+
+  font-size:67px;
+
+  line-height:.95;
+
   font-weight:950;
-  letter-spacing:-3.5px;
-  text-shadow:0 0 35px rgba(168,85,255,.15);
+
+  letter-spacing:-5px;
+
+  text-shadow:
+
+    0 0 40px rgba(168,85,255,.15),
+
+    0 20px 50px rgba(0,0,0,.45);
+
 }
 
 .logo span{
+
   background:
+
     linear-gradient(
+
       90deg,
+
       var(--cyan),
+
       var(--purple),
-      var(--pink)
+
+      var(--pink),
+
+      var(--cyan)
+
     );
+
+  background-size:300%;
+
   -webkit-background-clip:text;
+
   background-clip:text;
+
   color:transparent;
-  background-size:200%;
-  animation:gradientMove 4s linear infinite;
+
+  animation:gradientMove 5s linear infinite;
+
 }
 
 .subtitle{
-  margin-top:13px;
+
+  margin-top:15px;
+
   color:#727287;
+
   font-size:8px;
+
   font-weight:850;
-  letter-spacing:4px;
+
+  letter-spacing:5px;
+
 }
 
-/* PROFILE */
+/* =========================
+
+   HERO DECOR
+
+========================= */
+
+.hero-decoration{
+
+  position:absolute;
+
+  right:24px;
+
+  bottom:43px;
+
+  z-index:4;
+
+  display:flex;
+
+  align-items:flex-end;
+
+  gap:5px;
+
+  opacity:.45;
+
+}
+
+.hero-decoration i{
+
+  width:3px;
+
+  border-radius:10px;
+
+  background:
+
+    linear-gradient(
+
+      var(--cyan),
+
+      var(--purple)
+
+    );
+
+  box-shadow:
+
+    0 0 12px rgba(84,246,255,.4);
+
+  animation:bars 1.4s ease-in-out infinite alternate;
+
+}
+
+.hero-decoration i:nth-child(1){height:18px}
+
+.hero-decoration i:nth-child(2){height:31px;animation-delay:.1s}
+
+.hero-decoration i:nth-child(3){height:49px;animation-delay:.2s}
+
+.hero-decoration i:nth-child(4){height:34px;animation-delay:.3s}
+
+.hero-decoration i:nth-child(5){height:62px;animation-delay:.4s}
+
+@keyframes bars{
+
+  to{
+
+    transform:scaleY(.35);
+
+  }
+
+}
+
+/* =========================
+
+   PROFILE
+
+========================= */
 
 .profile{
+
   position:relative;
-  z-index:5;
-  margin:-1px 18px 25px;
-  padding:19px;
+
+  z-index:10;
+
+  margin:-1px 18px 28px;
+
+  padding:20px;
+
   border:1px solid var(--line);
-  border-radius:25px;
+
+  border-radius:27px;
+
   background:
+
     linear-gradient(
+
       145deg,
-      rgba(31,30,50,.82),
-      rgba(10,10,18,.75)
+
+      rgba(30,29,50,.86),
+
+      rgba(8,8,17,.78)
+
     );
-  backdrop-filter:blur(25px);
+
+  backdrop-filter:blur(28px);
+
+  -webkit-backdrop-filter:blur(28px);
+
   box-shadow:
-    0 25px 80px rgba(0,0,0,.4),
-    0 0 35px rgba(103,70,255,.05),
-    inset 0 1px rgba(255,255,255,.06);
+
+    0 30px 90px rgba(0,0,0,.5),
+
+    0 0 45px rgba(103,70,255,.06),
+
+    inset 0 1px rgba(255,255,255,.07);
+
 }
 
 .profile-top{
+
   display:flex;
+
   align-items:center;
+
   gap:14px;
+
 }
 
 .avatar{
-  width:58px;
-  height:58px;
+
+  width:60px;
+
+  height:60px;
+
   display:grid;
+
   place-items:center;
-  border-radius:19px;
+
+  border-radius:20px;
+
   background:
-    linear-gradient(145deg,#24243a,#0d0d15);
+
+    linear-gradient(
+
+      145deg,
+
+      #25253c,
+
+      #0b0b14
+
+    );
+
   border:1px solid rgba(255,255,255,.1);
+
   color:#bdf9ff;
-  font-size:24px;
-  box-shadow:0 0 25px rgba(84,246,255,.08);
+
+  font-size:25px;
+
+  box-shadow:
+
+    0 0 25px rgba(84,246,255,.08),
+
+    inset 0 1px rgba(255,255,255,.08);
+
 }
 
 .profile-name{
-  font-size:14px;
+
+  font-size:15px;
+
   font-weight:950;
+
 }
 
 .profile-role{
+
   margin-top:5px;
+
   color:#77778b;
+
   font-size:8px;
+
 }
 
 .profile-status{
+
   margin-left:auto;
+
   display:flex;
+
   align-items:center;
+
   gap:6px;
+
   padding:7px 10px;
+
   border-radius:20px;
+
   color:#6eeeb2;
+
   background:rgba(85,242,170,.05);
+
   border:1px solid rgba(85,242,170,.13);
+
   font-size:7px;
+
   font-weight:950;
+
 }
 
 .profile-info{
+
   display:grid;
+
   grid-template-columns:repeat(3,1fr);
+
   gap:8px;
-  margin-top:15px;
+
+  margin-top:16px;
+
 }
 
 .info{
-  padding:11px 7px;
+
+  padding:12px 7px;
+
   text-align:center;
-  border-radius:13px;
+
+  border-radius:14px;
+
   background:rgba(255,255,255,.025);
+
   border:1px solid rgba(255,255,255,.05);
+
+  transition:.25s;
+
+}
+
+.info:hover{
+
+  transform:translateY(-3px);
+
+  border-color:rgba(84,246,255,.15);
+
 }
 
 .info small{
+
   display:block;
+
   color:#626275;
+
   font-size:7px;
+
   text-transform:uppercase;
+
   letter-spacing:1px;
+
 }
 
 .info b{
+
   display:block;
+
   margin-top:5px;
+
   color:#d9d9e5;
+
   font-size:9px;
+
 }
 
-/* NAV */
+/* =========================
+
+   NAV
+
+========================= */
 
 .nav-wrap{
+
   padding:0 16px;
+
 }
 
 .nav{
+
   display:flex;
+
   gap:8px;
+
   overflow-x:auto;
+
   padding:2px 2px 10px;
+
   scrollbar-width:none;
+
 }
 
 .nav::-webkit-scrollbar{
-  display:none
+
+  display:none;
+
 }
 
 .nav-btn{
+
   flex-shrink:0;
-  height:43px;
-  padding:0 17px;
+
+  height:45px;
+
+  padding:0 18px;
+
   display:flex;
+
   align-items:center;
+
   gap:8px;
+
   border:1px solid rgba(255,255,255,.07);
+
   border-radius:15px;
+
   color:#77778a;
+
   background:rgba(255,255,255,.025);
+
   font-family:inherit;
+
   font-size:8px;
+
   font-weight:950;
+
   cursor:pointer;
+
   transition:.25s;
+
 }
 
 .nav-btn:hover{
-  border-color:rgba(84,246,255,.2);
+
   transform:translateY(-2px);
+
+  border-color:rgba(84,246,255,.2);
+
 }
 
 .nav-btn.active{
+
   color:#fff;
-  border-color:rgba(84,246,255,.24);
+
+  border-color:rgba(84,246,255,.25);
+
   background:
+
     linear-gradient(
+
       135deg,
-      rgba(84,246,255,.12),
-      rgba(168,85,255,.14)
+
+      rgba(84,246,255,.13),
+
+      rgba(168,85,255,.16)
+
     );
+
   box-shadow:
-    0 0 25px rgba(84,246,255,.05);
+
+    0 0 28px rgba(84,246,255,.06),
+
+    inset 0 0 20px rgba(84,246,255,.025);
+
 }
 
-/* SECTION */
+/* =========================
+
+   SECTION
+
+========================= */
 
 .section{
-  padding:25px 16px 0;
+
+  padding:27px 16px 0;
+
   animation:sectionIn .4s ease;
+
 }
 
 @keyframes sectionIn{
-  from{opacity:0;transform:translateY(10px)}
-  to{opacity:1;transform:translateY(0)}
+
+  from{
+
+    opacity:0;
+
+    transform:translateY(12px);
+
+  }
+
+  to{
+
+    opacity:1;
+
+    transform:translateY(0);
+
+  }
+
 }
 
 .heading{
+
   display:flex;
+
   align-items:center;
+
   gap:10px;
-  margin-bottom:15px;
+
+  margin-bottom:16px;
+
 }
 
 .heading-icon{
-  width:35px;
-  height:35px;
+
+  width:37px;
+
+  height:37px;
+
   display:grid;
+
   place-items:center;
-  border-radius:11px;
+
+  border-radius:12px;
+
   color:var(--cyan);
+
   background:
+
     linear-gradient(
+
       135deg,
+
       rgba(84,246,255,.12),
+
       rgba(168,85,255,.13)
+
     );
+
   border:1px solid rgba(255,255,255,.07);
-  box-shadow:0 0 20px rgba(84,246,255,.04);
+
+  box-shadow:
+
+    0 0 22px rgba(84,246,255,.04);
+
 }
 
 .heading h2{
-  font-size:21px;
+
+  font-size:22px;
+
   font-weight:950;
+
 }
 
 .heading-line{
+
   flex:1;
+
   height:1px;
+
   background:
+
     linear-gradient(
+
       90deg,
-      rgba(255,255,255,.13),
+
+      rgba(255,255,255,.14),
+
       transparent
+
     );
+
 }
 
-/* CARD */
+/* =========================
+
+   CARD
+
+========================= */
 
 .premium-card{
+
   position:relative;
+
   overflow:hidden;
-  padding:21px;
-  border:1px solid rgba(168,85,255,.16);
-  border-radius:25px;
+
+  padding:22px;
+
+  border:1px solid rgba(168,85,255,.17);
+
+  border-radius:27px;
+
   background:
+
     linear-gradient(
+
       145deg,
-      rgba(26,24,43,.87),
-      rgba(9,9,16,.84)
+
+      rgba(26,24,43,.9),
+
+      rgba(7,7,15,.86)
+
     );
+
   box-shadow:
-    0 25px 80px rgba(0,0,0,.38),
-    inset 0 1px rgba(255,255,255,.035);
+
+    0 30px 90px rgba(0,0,0,.43),
+
+    0 0 50px rgba(168,85,255,.045),
+
+    inset 0 1px rgba(255,255,255,.045);
+
 }
 
 .premium-card:before{
+
   content:"";
+
   position:absolute;
-  width:220px;
-  height:220px;
-  right:-130px;
-  top:-130px;
+
+  width:280px;
+
+  height:280px;
+
+  right:-160px;
+
+  top:-170px;
+
   border-radius:50%;
-  background:rgba(168,85,255,.12);
+
+  background:rgba(168,85,255,.14);
+
+  filter:blur(65px);
+
+}
+
+.premium-card:after{
+
+  content:"";
+
+  position:absolute;
+
+  width:180px;
+
+  height:180px;
+
+  left:-130px;
+
+  bottom:-120px;
+
+  border-radius:50%;
+
+  background:rgba(84,246,255,.08);
+
   filter:blur(60px);
+
 }
 
 .premium-top{
+
   position:relative;
+
   z-index:1;
+
   display:flex;
+
   align-items:center;
+
   gap:13px;
-  margin-bottom:20px;
+
+  margin-bottom:21px;
+
 }
 
 .premium-icon{
-  width:51px;
-  height:51px;
+
+  width:53px;
+
+  height:53px;
+
   display:grid;
+
   place-items:center;
-  border-radius:16px;
+
+  border-radius:17px;
+
   background:
+
     linear-gradient(
+
       135deg,
+
       rgba(84,246,255,.14),
-      rgba(168,85,255,.18)
+
+      rgba(168,85,255,.2)
+
     );
+
   border:1px solid rgba(255,255,255,.08);
+
   font-size:23px;
-  box-shadow:0 0 25px rgba(168,85,255,.08);
+
+  box-shadow:
+
+    0 0 25px rgba(168,85,255,.09);
+
 }
 
 .premium-title{
+
   font-size:15px;
+
   font-weight:950;
+
 }
 
 .premium-desc{
+
   margin-top:5px;
+
   color:#77778a;
+
   font-size:8px;
+
 }
 
-/* STEPS */
+/* =========================
+
+   STEPS
+
+========================= */
 
 .steps{
+
   position:relative;
+
   z-index:1;
+
   display:grid;
+
   gap:8px;
-  margin-bottom:20px;
+
+  margin-bottom:21px;
+
 }
 
 .step{
+
   display:flex;
+
   align-items:center;
+
   gap:11px;
-  padding:11px;
-  border-radius:14px;
+
+  padding:12px;
+
+  border-radius:15px;
+
   background:rgba(255,255,255,.025);
+
   border:1px solid rgba(255,255,255,.05);
+
   transition:.25s;
+
 }
 
 .step:hover{
-  transform:translateX(3px);
-  border-color:rgba(84,246,255,.15);
-  background:rgba(84,246,255,.035);
+
+  transform:translateX(4px);
+
+  border-color:
+
+    rgba(84,246,255,.15);
+
+  background:
+
+    rgba(84,246,255,.035);
+
 }
 
 .step-number{
-  width:27px;
-  height:27px;
+
+  width:28px;
+
+  height:28px;
+
   flex-shrink:0;
+
   display:grid;
+
   place-items:center;
+
   border-radius:9px;
+
   background:
+
     linear-gradient(
+
       135deg,
+
       rgba(84,246,255,.12),
+
       rgba(168,85,255,.14)
+
     );
+
   color:#b8f4ff;
+
   font-size:8px;
+
   font-weight:950;
+
+}
+
+.step-text{
+
+  min-width:0;
+
 }
 
 .step-text strong{
+
   display:block;
+
   font-size:9px;
+
+  line-height:1.4;
+
 }
 
 .step-text span{
+
   display:block;
-  margin-top:3px;
+
+  margin-top:4px;
+
   color:#666678;
+
   font-size:7px;
+
+  line-height:1.5;
+
 }
 
-/* VIDEO */
+/* =========================
+
+   VIDEO
+
+========================= */
 
 .tutorial-video{
+
   position:relative;
+
   margin:0 0 20px;
+
   padding:12px;
+
   border-radius:20px;
+
   background:
+
     linear-gradient(
+
       145deg,
+
       rgba(255,255,255,.045),
+
       rgba(255,255,255,.012)
+
     );
+
   border:1px solid rgba(255,255,255,.08);
-  box-shadow:0 15px 50px rgba(0,0,0,.2);
+
+  box-shadow:
+
+    0 15px 50px rgba(0,0,0,.2);
+
 }
 
 .video-label{
+
   display:flex;
+
   align-items:center;
+
   gap:8px;
+
   margin:0 0 10px 2px;
+
   color:#9292a2;
+
   font-size:7px;
+
   font-weight:950;
+
   letter-spacing:1.4px;
+
 }
 
 .video-label span{
+
   width:23px;
+
   height:23px;
+
   display:grid;
+
   place-items:center;
+
   border-radius:8px;
+
   color:#baf5ff;
+
   background:
+
     linear-gradient(
+
       135deg,
+
       rgba(84,246,255,.13),
+
       rgba(168,85,255,.16)
+
     );
+
   border:1px solid rgba(255,255,255,.08);
+
 }
 
 .tutorial-player{
+
   display:block;
+
   width:100%;
+
   aspect-ratio:16/9;
+
   object-fit:cover;
+
   border-radius:14px;
+
   background:#000;
+
   border:1px solid rgba(255,255,255,.08);
+
 }
 
-/* FORM */
+/* =========================
+
+   FORM
+
+========================= */
 
 .field{
+
   position:relative;
+
   z-index:1;
+
   margin-top:14px;
+
 }
 
 .label{
+
   display:block;
+
   margin-bottom:7px;
+
   color:#737386;
+
   font-size:7px;
+
   font-weight:900;
+
   letter-spacing:1.1px;
+
   text-transform:uppercase;
+
 }
 
-.input,.textarea{
+.input,
+
+.textarea{
+
   width:100%;
+
   outline:none;
+
   color:#fff;
-  background:rgba(0,0,0,.32);
+
+  background:
+
+    linear-gradient(
+
+      145deg,
+
+      rgba(0,0,0,.38),
+
+      rgba(255,255,255,.015)
+
+    );
+
   border:1px solid rgba(255,255,255,.075);
-  border-radius:13px;
+
+  border-radius:14px;
+
   font-family:inherit;
+
   transition:.25s;
+
 }
 
 .input{
-  height:45px;
-  padding:0 13px;
+
+  height:47px;
+
+  padding:0 14px;
+
   font-size:10px;
+
 }
 
 .textarea{
-  min-height:76px;
+
+  min-height:80px;
+
   padding:12px;
+
   resize:none;
+
   font-size:9px;
+
   line-height:1.5;
+
 }
 
 .input::placeholder,
+
 .textarea::placeholder{
+
   color:#4d4d5c;
+
 }
 
 .input:focus,
+
 .textarea:focus{
-  border-color:rgba(84,246,255,.35);
+
+  border-color:rgba(84,246,255,.4);
+
   box-shadow:
+
     0 0 0 3px rgba(84,246,255,.035),
-    0 0 25px rgba(84,246,255,.04);
+
+    0 0 30px rgba(84,246,255,.055);
+
 }
 
-/* BUTTON */
+/* =========================
+
+   BUTTON
+
+========================= */
 
 .actions{
+
   position:relative;
+
   z-index:1;
+
   display:flex;
+
   gap:8px;
+
   margin-top:9px;
+
 }
 
 .btn{
-  height:41px;
-  padding:0 16px;
-  border:1px solid rgba(255,255,255,.09);
-  border-radius:12px;
+
+  position:relative;
+
+  height:43px;
+
+  padding:0 17px;
+
+  overflow:hidden;
+
+  border:1px solid rgba(255,255,255,.1);
+
+  border-radius:13px;
+
   color:#fff;
+
   background:
+
     linear-gradient(
+
       135deg,
-      rgba(84,246,255,.12),
-      rgba(168,85,255,.16)
+
+      rgba(84,246,255,.13),
+
+      rgba(168,85,255,.18)
+
     );
+
   font-family:inherit;
+
   font-size:8px;
+
   font-weight:950;
+
   cursor:pointer;
+
   transition:.25s;
+
+}
+
+.btn:before{
+
+  content:"";
+
+  position:absolute;
+
+  inset:0;
+
+  background:
+
+    linear-gradient(
+
+      100deg,
+
+      transparent,
+
+      rgba(255,255,255,.15),
+
+      transparent
+
+    );
+
+  transform:translateX(-120%);
+
+  transition:.6s;
+
+}
+
+.btn:hover:before{
+
+  transform:translateX(120%);
+
 }
 
 .btn:hover{
+
   transform:translateY(-2px);
-  box-shadow:0 10px 30px rgba(84,246,255,.07);
+
+  border-color:
+
+    rgba(84,246,255,.2);
+
+  box-shadow:
+
+    0 12px 35px rgba(84,246,255,.08);
+
 }
 
 .btn:active{
-  transform:scale(.97)
+
+  transform:scale(.97);
+
 }
 
 .btn.loading{
+
   opacity:.5;
+
   pointer-events:none;
+
 }
 
-/* RESULT */
+/* =========================
+
+   RESULT
+
+========================= */
 
 .result{
+
   display:none;
-  margin-top:12px;
-  padding:12px;
-  border-radius:13px;
+
+  margin-top:13px;
+
+  padding:13px;
+
+  border-radius:14px;
+
   font-size:8px;
+
   line-height:1.6;
+
+  animation:resultIn .3s ease;
+
+}
+
+@keyframes resultIn{
+
+  from{
+
+    opacity:0;
+
+    transform:translateY(5px);
+
+  }
+
+  to{
+
+    opacity:1;
+
+    transform:translateY(0);
+
+  }
+
 }
 
 .result.show{
-  display:block
+
+  display:block;
+
 }
 
 .result.ok{
+
   color:#69edb0;
-  background:rgba(85,242,170,.045);
-  border:1px solid rgba(85,242,170,.12);
-  box-shadow:0 0 25px rgba(85,242,170,.04);
+
+  background:
+
+    rgba(85,242,170,.045);
+
+  border:
+
+    1px solid rgba(85,242,170,.12);
+
 }
 
 .result.error{
+
   color:#ff7187;
-  background:rgba(255,70,100,.045);
-  border:1px solid rgba(255,70,100,.12);
+
+  background:
+
+    rgba(255,70,100,.045);
+
+  border:
+
+    1px solid rgba(255,70,100,.12);
+
 }
 
 .result.wait{
+
   color:#aeefff;
-  background:rgba(84,246,255,.045);
-  border:1px solid rgba(84,246,255,.12);
+
+  background:
+
+    rgba(84,246,255,.045);
+
+  border:
+
+    1px solid rgba(84,246,255,.12);
+
 }
 
-/* ACTIVE */
+/* =========================
+
+   PREMIUM ACTIVE
+
+========================= */
 
 .premium-active{
+
   display:none;
-  margin-top:13px;
-  padding:18px;
-  border-radius:17px;
+
+  margin-top:14px;
+
+  padding:20px;
+
+  border-radius:18px;
+
   text-align:center;
+
   background:
+
     linear-gradient(
+
       135deg,
+
       rgba(85,242,170,.075),
+
       rgba(84,246,255,.045)
+
     );
+
   border:1px solid rgba(85,242,170,.18);
-  box-shadow:0 0 35px rgba(85,242,170,.05);
+
+  box-shadow:
+
+    0 0 35px rgba(85,242,170,.05);
+
+  animation:activeIn .45s ease;
+
 }
 
 .premium-active.show{
+
   display:block;
+
+}
+
+@keyframes activeIn{
+
+  from{
+
+    opacity:0;
+
+    transform:scale(.96);
+
+  }
+
+  to{
+
+    opacity:1;
+
+    transform:scale(1);
+
+  }
+
 }
 
 .active-icon{
-  width:42px;
-  height:42px;
-  margin:0 auto 8px;
+
+  width:44px;
+
+  height:44px;
+
+  margin:0 auto 9px;
+
   display:grid;
+
   place-items:center;
+
   border-radius:14px;
+
   color:#07120d;
+
   background:var(--green);
-  box-shadow:0 0 25px rgba(85,242,170,.3);
+
+  box-shadow:
+
+    0 0 25px rgba(85,242,170,.3);
+
   font-size:18px;
+
   font-weight:950;
+
 }
 
 .active-title{
+
   color:#69edb0;
+
   font-size:13px;
+
   font-weight:950;
+
 }
 
 .active-text{
+
   margin-top:5px;
+
   color:#777784;
+
   font-size:8px;
+
 }
 
-/* INFO */
+/* =========================
+
+   INFO
+
+========================= */
 
 .info-box{
+
   position:relative;
+
   z-index:1;
+
   margin-top:13px;
+
   padding:14px;
+
   border-radius:15px;
-  background:rgba(255,255,255,.022);
-  border:1px solid rgba(255,255,255,.05);
+
+  background:
+
+    rgba(255,255,255,.022);
+
+  border:
+
+    1px solid rgba(255,255,255,.05);
+
 }
 
 .info-box-title{
+
   display:flex;
+
   align-items:center;
+
   gap:7px;
+
   margin-bottom:8px;
+
   color:#d9d9e0;
+
   font-size:9px;
+
   font-weight:950;
+
 }
 
 .info-box p{
+
   color:#686874;
+
   font-size:8px;
+
   line-height:1.7;
+
 }
 
-/* ABOUT */
+/* =========================
+
+   ABOUT
+
+========================= */
 
 .about-list{
+
   display:grid;
+
   gap:9px;
+
   margin-top:16px;
+
 }
 
 .about-item{
-  padding:13px;
-  border-radius:14px;
-  background:rgba(255,255,255,.025);
-  border:1px solid rgba(255,255,255,.05);
+
+  padding:14px;
+
+  border-radius:15px;
+
+  background:
+
+    rgba(255,255,255,.025);
+
+  border:
+
+    1px solid rgba(255,255,255,.05);
+
   transition:.25s;
+
 }
 
 .about-item:hover{
+
   transform:translateY(-2px);
-  border-color:rgba(168,85,255,.16);
+
+  border-color:
+
+    rgba(168,85,255,.16);
+
+  box-shadow:
+
+    0 10px 30px rgba(0,0,0,.15);
+
 }
 
 .about-item b{
+
   display:block;
+
   color:#dddde4;
+
   font-size:9px;
+
 }
 
 .about-item span{
+
   display:block;
+
   margin-top:4px;
+
   color:#696974;
+
   font-size:8px;
+
   line-height:1.5;
+
 }
 
-/* DEVELOPER */
+/* =========================
+
+   DEVELOPER
+
+========================= */
 
 .developer-card{
+
   position:relative;
-  margin-top:18px;
-  padding:23px 18px;
+
+  margin-top:19px;
+
+  padding:27px 18px;
+
   text-align:center;
+
   overflow:hidden;
-  border-radius:20px;
+
+  border-radius:22px;
+
   background:
+
     linear-gradient(
+
       145deg,
-      rgba(168,85,255,.1),
+
+      rgba(168,85,255,.11),
+
       rgba(84,246,255,.035)
+
     );
-  border:1px solid rgba(255,255,255,.07);
+
+  border:
+
+    1px solid rgba(255,255,255,.07);
+
+  box-shadow:
+
+    0 20px 60px rgba(0,0,0,.25);
+
 }
 
 .developer-card:before{
+
   content:"";
+
   position:absolute;
-  width:180px;
-  height:180px;
+
+  width:210px;
+
+  height:210px;
+
   left:50%;
-  top:-120px;
+
+  top:-140px;
+
   transform:translateX(-50%);
+
   border-radius:50%;
-  background:rgba(168,85,255,.18);
-  filter:blur(45px);
+
+  background:
+
+    rgba(168,85,255,.18);
+
+  filter:blur(50px);
+
 }
 
 .developer-label{
+
   position:relative;
+
   color:#666673;
+
   font-size:7px;
+
   font-weight:950;
+
   letter-spacing:2.5px;
+
 }
 
 .developer-name{
+
   position:relative;
-  margin-top:8px;
-  font-size:19px;
+
+  margin-top:9px;
+
+  font-size:21px;
+
   font-weight:950;
+
   background:
+
     linear-gradient(
+
       90deg,
+
       var(--cyan),
+
       var(--purple),
+
       var(--pink)
+
     );
+
   -webkit-background-clip:text;
+
   background-clip:text;
+
   color:transparent;
+
 }
 
 .developer-line{
-  width:55px;
+
+  width:65px;
+
   height:1px;
-  margin:14px auto 5px;
+
+  margin:15px auto 5px;
+
   background:
+
     linear-gradient(
+
       90deg,
+
       transparent,
-      rgba(255,255,255,.35),
+
+      rgba(255,255,255,.4),
+
       transparent
+
     );
+
 }
 
 .signature{
+
   position:relative;
+
   margin-top:2px;
+
   font-family:
+
     "Brush Script MT",
+
     "Segoe Script",
+
     cursive;
-  font-size:40px;
+
+  font-size:42px;
+
   font-style:italic;
+
   color:#fff;
+
   transform:rotate(-5deg);
-  text-shadow:0 0 18px rgba(168,85,255,.3);
+
+  text-shadow:
+
+    0 0 18px rgba(168,85,255,.3);
+
 }
 
 .signature-caption{
+
   position:relative;
+
   margin-top:5px;
+
   color:#50505b;
+
   font-size:6px;
+
   font-weight:900;
+
   letter-spacing:1.8px;
+
   text-transform:uppercase;
+
 }
+
+/* =========================
+
+   FOOTER
+
+========================= */
 
 .footer{
-  padding:35px 20px 0;
+
+  padding:40px 20px 0;
+
   text-align:center;
+
   color:#3e3e48;
+
   font-size:7px;
+
   letter-spacing:2px;
+
 }
 
-/* MOBILE */
+/* =========================
+
+   MOBILE
+
+========================= */
 
 @media(max-width:500px){
 
   .hero{
-    min-height:300px;
+
+    min-height:340px;
+
   }
 
   .logo{
-    font-size:42px;
+
+    font-size:45px;
+
+    letter-spacing:-3px;
+
+  }
+
+  .subtitle{
+
+    letter-spacing:3px;
+
   }
 
   .profile{
-    margin-left:15px;
-    margin-right:15px;
+
+    margin-left:14px;
+
+    margin-right:14px;
+
   }
 
   .section{
+
     padding-left:13px;
+
     padding-right:13px;
+
   }
 
   .premium-card{
+
     padding:18px;
+
   }
+
+  .hero-decoration{
+
+    right:18px;
+
+    bottom:35px;
+
+  }
+
 }
 
 @media(max-width:360px){
 
   .profile-status{
+
     display:none;
+
   }
 
   .logo{
-    font-size:37px;
+
+    font-size:38px;
+
   }
 
   .nav-btn{
+
     padding:0 13px;
+
   }
+
+  .welcome-title{
+
+    font-size:21px;
+
+  }
+
+  .step-text strong{
+
+    font-size:8px;
+
+  }
+
 }
+
 </style>
+
 </head>
 
 <body>
 
-<!-- PARTICLES -->
+<!-- BACKGROUND -->
 
-<div class="particles" id="particles"></div>
+<div class="ambient">
 
-<!-- WELCOME OVERLAY -->
+  <div class="blob one"></div>
+
+  <div class="blob two"></div>
+
+  <div class="blob three"></div>
+
+</div>
+
+<div class="grid-bg"></div>
+
+<div id="particles"></div>
+
+<!-- =========================
+
+     WELCOME
+
+========================= -->
 
 <div class="welcome-overlay" id="welcomeOverlay">
 
   <div class="welcome-card">
 
-    <div class="welcome-icon">✦</div>
+    <div class="welcome-icon">
+
+      ✦
+
+    </div>
 
     <div class="welcome-small">
+
       FUTURISTIC PREMIUM SYSTEM
+
     </div>
 
     <div class="welcome-title">
+
       WELCOME TO<br>
-      <span>CREATE ALIGHT MOTION</span><br>
+
+      <span class="gradient-text">
+
+        CREATE ALIGHT MOTION
+
+      </span>
+
+      <br>
+
       PREMIUM FREE 1 YEARS
+
     </div>
 
     <div class="welcome-desc">
+
       Sistem aktivasi premium dengan tampilan
-      futuristik dan proses verifikasi Magic Link.
+
+      futuristic, smooth animation dan proses
+
+      verifikasi akun yang sederhana.
+
     </div>
 
-    <button class="welcome-btn" onclick="closeWelcome()">
-      ✦ GET STARTED
+    <button
+
+      class="welcome-btn"
+
+      onclick="closeWelcome()">
+
+      ✦ ENTER SYSTEM
+
     </button>
 
     <div class="welcome-footer">
-      SECURE • FAST • MODERN
+
+      SECURE • FAST • FUTURISTIC • RYUZE
+
     </div>
 
   </div>
 
 </div>
 
-
 <div class="container">
 
-<!-- HERO -->
+<!-- =========================
+
+     HERO
+
+========================= -->
 
 <header class="hero">
 
-  <div class="hero-grid"></div>
   <div class="hero-orb"></div>
 
   <div class="hero-content">
 
     <div class="status-pill">
+
       <span class="status-dot"></span>
+
       SYSTEM ONLINE
+
     </div>
 
     <div class="logo">
+
       AM <span>Premium</span>
+
     </div>
 
     <div class="subtitle">
+
       FUTURISTIC ACCOUNT SYSTEM
+
     </div>
+
+  </div>
+
+  <div class="hero-decoration">
+
+    <i></i>
+
+    <i></i>
+
+    <i></i>
+
+    <i></i>
+
+    <i></i>
 
   </div>
 
 </header>
 
+<!-- =========================
 
-<!-- PROFILE -->
+     PROFILE
+
+========================= -->
 
 <section class="profile">
 
   <div class="profile-top">
 
     <div class="avatar">
+
       ✦
+
     </div>
 
     <div>
+
       <div class="profile-name">
+
         AM Premium
+
       </div>
 
       <div class="profile-role">
+
         Premium verification system
+
       </div>
+
     </div>
 
     <div class="profile-status">
+
       <span class="status-dot"></span>
+
       ONLINE
+
     </div>
 
   </div>
@@ -1292,214 +2885,389 @@ body:after{
   <div class="profile-info">
 
     <div class="info">
+
       <small>Region</small>
-      <b>Indonesia</b>
+
+      <b>
+
+        Indonesia
+
+      </b>
+
     </div>
 
     <div class="info">
+
       <small>System</small>
-      <b>AM API</b>
+
+      <b>
+
+        AM API
+
+      </b>
+
     </div>
 
     <div class="info">
+
       <small>Security</small>
-      <b>Active</b>
+
+      <b>
+
+        Active
+
+      </b>
+
     </div>
 
   </div>
 
 </section>
 
+<!-- =========================
 
-<!-- NAV -->
+     NAV
+
+========================= -->
 
 <div class="nav-wrap">
 
   <div class="nav">
 
     <button
+
       class="nav-btn active"
+
       onclick="showPanel('premium',this)">
+
       ✦ AM PREMIUM
+
     </button>
 
     <button
+
       class="nav-btn"
+
       onclick="showPanel('guide',this)">
+
       ? CARA PAKAI
+
     </button>
 
     <button
+
       class="nav-btn"
+
       onclick="showPanel('about',this)">
+
       ◉ ABOUT
+
     </button>
 
   </div>
 
 </div>
 
+<!-- =========================
 
-<!-- PREMIUM -->
+     PREMIUM
 
-<section id="premium" class="section panel">
+========================= -->
+
+<section
+
+  id="premium"
+
+  class="section panel">
 
   <div class="heading">
 
     <div class="heading-icon">
+
       ✦
+
     </div>
 
-    <h2>AM Premium</h2>
+    <h2>
+
+      AM Premium
+
+    </h2>
 
     <div class="heading-line"></div>
 
   </div>
-
 
   <div class="premium-card">
 
     <div class="premium-top">
 
       <div class="premium-icon">
+
         ✦
+
       </div>
 
       <div>
 
         <div class="premium-title">
+
           Aktivasi Premium
+
         </div>
 
         <div class="premium-desc">
-          Verifikasi akun menggunakan Magic Link
+
+          Verifikasi akun menggunakan Link Verifikasi
+
         </div>
 
       </div>
 
     </div>
 
+    <!-- STEPS -->
 
     <div class="steps">
 
       <div class="step">
-        <div class="step-number">01</div>
-        <div class="step-text">
-          <strong>Masukkan email</strong>
-          <span>Gunakan email yang terhubung ke akun AM.</span>
+
+        <div class="step-number">
+
+          01
+
         </div>
+
+        <div class="step-text">
+
+          <strong>
+
+            Masukkan email
+
+          </strong>
+
+          <span>
+
+            Gunakan email yang terhubung ke akun Alight Motion.
+
+          </span>
+
+        </div>
+
       </div>
 
       <div class="step">
-        <div class="step-number">02</div>
-        <div class="step-text">
-          <strong>Kirim Magic Link</strong>
-          <span>Link verifikasi akan dikirim melalui email.</span>
+
+        <div class="step-number">
+
+          02
+
         </div>
+
+        <div class="step-text">
+
+          <strong>
+
+            Tunggu link verifikasi
+
+          </strong>
+
+          <span>
+
+            Link verifikasi Alight Motion Premium akan kami kirim melalui Gmail di folder Spam.
+
+          </span>
+
+        </div>
+
       </div>
 
       <div class="step">
-        <div class="step-number">03</div>
-        <div class="step-text">
-          <strong>Tempel Magic Link</strong>
-          <span>Salin link dari email lalu tempel di bawah.</span>
+
+        <div class="step-number">
+
+          03
+
         </div>
+
+        <div class="step-text">
+
+          <strong>
+
+            Salin link verifikasi
+
+          </strong>
+
+          <span>
+
+            Buka email lalu salin link verifikasi yang diterima.
+
+          </span>
+
+        </div>
+
       </div>
 
       <div class="step">
-        <div class="step-number">04</div>
-        <div class="step-text">
-          <strong>Verify</strong>
-          <span>Tekan Verify untuk menyelesaikan aktivasi.</span>
+
+        <div class="step-number">
+
+          04
+
         </div>
+
+        <div class="step-text">
+
+          <strong>
+
+            Verifikasi akun
+
+          </strong>
+
+          <span>
+
+            Tempel link verifikasi lalu tekan tombol Verify.
+
+          </span>
+
+        </div>
+
       </div>
 
     </div>
 
+    <!-- EMAIL -->
 
     <div class="field">
 
       <label class="label">
+
         Account Email
+
       </label>
 
       <input
+
         id="email"
+
         class="input"
+
         type="email"
-        placeholder="contoh@email.com">
+
+        autocomplete="email"
+
+        placeholder="contoh@gmail.com">
 
     </div>
-
 
     <div class="actions">
 
       <button
+
         id="sendBtn"
+
         class="btn"
-        onclick="sendMagic()">
-        ↗ SEND MAGIC LINK
+
+        onclick="sendVerification()">
+
+        ↗ KIRIM LINK VERIFIKASI
+
       </button>
 
     </div>
 
+    <!-- LINK -->
 
     <div class="field">
 
       <label class="label">
-        Magic Link URL
+
+        Link Verifikasi
+
       </label>
 
       <textarea
-        id="magicUrl"
+
+        id="verificationUrl"
+
         class="textarea"
-        placeholder="Tempel Magic Link dari email di sini..."></textarea>
+
+        placeholder="Tempel link verifikasi dari Gmail di sini..."></textarea>
 
     </div>
-
 
     <div class="actions">
 
       <button
+
         id="verifyBtn"
+
         class="btn"
-        onclick="verifyMagic()">
-        ✓ VERIFY LINK
+
+        onclick="verifyLink()">
+
+        ✓ VERIFIKASI LINK
+
       </button>
 
     </div>
 
+    <!-- RESULT -->
 
-    <div id="result" class="result"></div>
+    <div
 
+      id="result"
 
-    <div id="premiumActive" class="premium-active">
+      class="result">
+
+    </div>
+
+    <!-- ACTIVE -->
+
+    <div
+
+      id="premiumActive"
+
+      class="premium-active">
 
       <div class="active-icon">
+
         ✓
+
       </div>
 
       <div class="active-title">
+
         PREMIUM ACTIVE
+
       </div>
 
       <div class="active-text">
-        Verifikasi berhasil dikonfirmasi oleh API.
+
+        Verifikasi berhasil dikonfirmasi oleh sistem.
+
       </div>
 
     </div>
 
+    <!-- INFO -->
 
     <div class="info-box">
 
       <div class="info-box-title">
+
         💡 Perlu diketahui
+
       </div>
 
       <p>
-        Magic Link adalah link verifikasi yang dikirim
-        ke email akun kamu. Jangan berikan link tersebut
-        kepada orang lain.
+
+        Link verifikasi akan dikirim ke email yang
+
+        kamu masukkan. Jika belum terlihat di inbox,
+
+        silakan cek folder Spam atau Junk.
+
       </p>
 
     </div>
@@ -1508,65 +3276,96 @@ body:after{
 
 </section>
 
+<!-- =========================
 
-<!-- GUIDE -->
+     GUIDE
+
+========================= -->
 
 <section
+
   id="guide"
+
   class="section panel"
+
   style="display:none">
 
   <div class="heading">
 
     <div class="heading-icon">
+
       ?
+
     </div>
 
-    <h2>Cara Pakai</h2>
+    <h2>
+
+      Cara Pakai
+
+    </h2>
 
     <div class="heading-line"></div>
 
   </div>
-
 
   <div class="premium-card">
 
     <div class="premium-top">
 
       <div class="premium-icon">
+
         ⚡
+
       </div>
 
       <div>
 
         <div class="premium-title">
-          Cara Ambil AM Premium
+
+          Cara Aktivasi
+
         </div>
 
         <div class="premium-desc">
-          Ikuti tutorial berikut dengan mudah
+
+          Ikuti langkah berikut dengan mudah
+
         </div>
 
       </div>
 
     </div>
 
+    <!-- VIDEO -->
 
     <div class="tutorial-video">
 
       <div class="video-label">
-        <span>▶</span>
+
+        <span>
+
+          ▶
+
+        </span>
+
         VIDEO TUTORIAL
+
       </div>
 
       <video
+
         class="tutorial-player"
+
         controls
+
         playsinline
+
         preload="metadata">
 
         <source
+
           src="https://files.catbox.moe/dgp6k5.mp4"
+
           type="video/mp4">
 
         Browser kamu tidak mendukung pemutaran video.
@@ -1575,63 +3374,130 @@ body:after{
 
     </div>
 
-
     <div class="about-list">
 
       <div class="about-item">
-        <b>01 — Masukkan email</b>
+
+        <b>
+
+          01 — Masukkan email
+
+        </b>
+
         <span>
-          Ketik email yang kamu gunakan pada akun AM
-          di kolom Account Email.
+
+          Masukkan email yang terhubung dengan akun
+
+          Alight Motion.
+
         </span>
+
       </div>
 
       <div class="about-item">
-        <b>02 — Send Magic Link</b>
+
+        <b>
+
+          02 — Tunggu link verifikasi
+
+        </b>
+
         <span>
-          Tekan tombol Send Magic Link.
+
+          Link verifikasi Alight Motion Premium akan
+
+          dikirim melalui Gmail. Cek juga folder Spam.
+
         </span>
+
       </div>
 
       <div class="about-item">
-        <b>03 — Cek email</b>
+
+        <b>
+
+          03 — Cek Gmail
+
+        </b>
+
         <span>
-          Buka inbox email dan cari email berisi Magic Link.
+
+          Buka Gmail dan cari pesan berisi
+
+          link verifikasi.
+
         </span>
+
       </div>
 
       <div class="about-item">
-        <b>04 — Salin Magic Link</b>
+
+        <b>
+
+          04 — Salin link
+
+        </b>
+
         <span>
-          Salin URL/link verifikasi dari email.
+
+          Salin link verifikasi dari email tersebut.
+
         </span>
+
       </div>
 
       <div class="about-item">
-        <b>05 — Tempel link</b>
+
+        <b>
+
+          05 — Tempel link
+
+        </b>
+
         <span>
-          Kembali ke website lalu tempel Magic Link.
+
+          Kembali ke website dan tempel link
+
+          verifikasi pada kolom yang tersedia.
+
         </span>
+
       </div>
 
       <div class="about-item">
-        <b>06 — Verify Link</b>
+
+        <b>
+
+          06 — Verifikasi
+
+        </b>
+
         <span>
-          Tekan Verify Link untuk menyelesaikan proses.
+
+          Tekan tombol Verifikasi Link untuk
+
+          menyelesaikan proses.
+
         </span>
+
       </div>
 
     </div>
 
-
     <div class="info-box">
 
       <div class="info-box-title">
+
         🔐 Keamanan
+
       </div>
 
       <p>
-        Jangan membagikan Magic Link kepada orang lain.
+
+        Jangan membagikan link verifikasi kamu
+
+        kepada orang lain.
+
       </p>
 
     </div>
@@ -1640,102 +3506,174 @@ body:after{
 
 </section>
 
+<!-- =========================
 
-<!-- ABOUT -->
+     ABOUT
+
+========================= -->
 
 <section
+
   id="about"
+
   class="section panel"
+
   style="display:none">
 
   <div class="heading">
 
     <div class="heading-icon">
+
       ◉
+
     </div>
 
-    <h2>About</h2>
+    <h2>
+
+      About
+
+    </h2>
 
     <div class="heading-line"></div>
 
   </div>
-
 
   <div class="premium-card">
 
     <div class="premium-top">
 
       <div class="premium-icon">
+
         ✦
+
       </div>
 
       <div>
 
         <div class="premium-title">
+
           AM Premium
+
         </div>
 
         <div class="premium-desc">
-          Secure account verification
+
+          Futuristic verification system
+
         </div>
 
       </div>
 
     </div>
 
-
     <p style="
+
+      position:relative;
+
+      z-index:1;
+
       color:#777783;
+
       font-size:9px;
+
       line-height:1.8
+
     ">
 
-      Website ini merupakan antarmuka sederhana
-      untuk proses pengiriman dan verifikasi Magic Link
-      menggunakan AM API.
+      Website ini merupakan interface untuk
+
+      membantu proses pengiriman dan verifikasi
+
+      akun menggunakan sistem AM API.
 
     </p>
-
 
     <div class="about-list">
 
       <div class="about-item">
-        <b>API System</b>
+
+        <b>
+
+          API System
+
+        </b>
+
         <span>
-          AM API digunakan untuk menangani proses
-          pengiriman dan verifikasi.
+
+          Sistem menggunakan AM API untuk menangani
+
+          proses pengiriman dan verifikasi.
+
         </span>
+
       </div>
 
       <div class="about-item">
-        <b>Secure Flow</b>
+
+        <b>
+
+          Verification Flow
+
+        </b>
+
         <span>
-          Verifikasi dilakukan melalui Magic Link
-          yang dikirim ke email.
+
+          Link verifikasi dikirim melalui email
+
+          kemudian digunakan untuk proses verifikasi.
+
         </span>
+
+      </div>
+
+      <div class="about-item">
+
+        <b>
+
+          Futuristic Interface
+
+        </b>
+
+        <span>
+
+          Tampilan menggunakan glassmorphism,
+
+          neon glow, animated particles dan
+
+          smooth transitions.
+
+        </span>
+
       </div>
 
     </div>
 
-
     <div class="developer-card">
 
       <div class="developer-label">
+
         DEVELOPER
+
       </div>
 
       <div class="developer-name">
+
         Ryuze
+
       </div>
 
       <div class="developer-line"></div>
 
       <div class="signature">
+
         faaa
+
       </div>
 
       <div class="signature-caption">
+
         Developer Signature
+
       </div>
 
     </div>
@@ -1744,343 +3682,622 @@ body:after{
 
 </section>
 
-
 <div class="footer">
-  AM PREMIUM • FUTURISTIC SYSTEM
-</div>
+
+  AM PREMIUM • FUTURISTIC SYSTEM • RYUZE
 
 </div>
 
+</div>
 
 <script>
 
-/* PARTICLES */
+/* =========================
+
+   API CONFIG
+
+========================= */
+
+const API_KEY =
+
+  "albymd-1cd364";
+
+const API_BASE =
+
+  "https://api.albyoffc.my.id";
+
+/* =========================
+
+   PARTICLES
+
+========================= */
 
 const particles =
-document.getElementById("particles");
 
-for(let i=0;i<45;i++){
+  document.getElementById("particles");
 
-  const p=document.createElement("div");
+for(let i=0;i<70;i++){
 
-  p.className="particle";
+  const p =
 
-  p.style.left=Math.random()*100+"%";
+    document.createElement("div");
 
-  p.style.animationDelay=
-    (Math.random()*7)+"s";
+  p.className =
 
-  p.style.animationDuration=
-    (5+Math.random()*8)+"s";
+    "particle";
 
-  p.style.opacity=
-    (.2+Math.random()*.7);
+  const size =
+
+    Math.random() > .85
+
+      ? 3
+
+      : 2;
+
+  p.style.width =
+
+    size+"px";
+
+  p.style.height =
+
+    size+"px";
+
+  p.style.left =
+
+    Math.random()*100+"%";
+
+  p.style.animationDelay =
+
+    Math.random()*10+"s";
+
+  p.style.animationDuration =
+
+    5 + Math.random()*10+"s";
+
+  p.style.opacity =
+
+    .2 + Math.random()*.7;
 
   particles.appendChild(p);
+
 }
 
+/* =========================
 
-/* WELCOME */
+   WELCOME
+
+========================= */
 
 function closeWelcome(){
 
-  const overlay=
-    document.getElementById("welcomeOverlay");
+  const overlay =
 
-  overlay.style.transition=
+    document.getElementById(
+
+      "welcomeOverlay"
+
+    );
+
+  overlay.style.transition =
+
     "opacity .45s ease, transform .45s ease";
 
-  overlay.style.opacity="0";
-  overlay.style.transform="scale(1.04)";
+  overlay.style.opacity =
+
+    "0";
+
+  overlay.style.transform =
+
+    "scale(1.04)";
 
   setTimeout(()=>{
-    overlay.style.display="none";
+
+    overlay.style.display =
+
+      "none";
+
   },450);
 
 }
 
+/* =========================
 
-/* PANEL */
+   PANEL
+
+========================= */
 
 function showPanel(id,button){
 
   document
+
     .querySelectorAll(".nav-btn")
+
     .forEach(btn=>{
-      btn.classList.remove("active");
+
+      btn.classList.remove(
+
+        "active"
+
+      );
+
     });
 
-  button.classList.add("active");
+  button.classList.add(
+
+    "active"
+
+  );
 
   document
+
     .querySelectorAll(".panel")
+
     .forEach(panel=>{
-      panel.style.display="none";
+
+      panel.style.display =
+
+        "none";
+
     });
 
-  const panel=
+  const panel =
+
     document.getElementById(id);
 
-  panel.style.display="block";
+  panel.style.display =
 
-  panel.style.animation="none";
+    "block";
+
+  panel.style.animation =
+
+    "none";
 
   requestAnimationFrame(()=>{
-    panel.style.animation=
+
+    panel.style.animation =
+
       "sectionIn .4s ease";
+
   });
 
 }
 
+/* =========================
 
-/* EMAIL */
+   EMAIL VALIDATION
+
+========================= */
 
 function validEmail(email){
 
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
     .test(email);
 
 }
 
+/* =========================
 
-/* RESULT */
+   RESULT
 
-function result(type,message){
+========================= */
 
-  const box=
-    document.getElementById("result");
+function showResult(
 
-  box.className=
+  type,
+
+  message
+
+){
+
+  const box =
+
+    document.getElementById(
+
+      "result"
+
+    );
+
+  box.className =
+
     "result show "+type;
 
-  box.textContent=message;
+  box.textContent =
+
+    message;
 
 }
 
+/* =========================
 
-/* SEND MAGIC */
+   SEND VERIFICATION
 
-async function sendMagic(){
+========================= */
 
-  const email=
+async function sendVerification(){
+
+  const email =
+
     document
+
       .getElementById("email")
+
       .value
+
       .trim();
 
-  const button=
-    document.getElementById("sendBtn");
+  const button =
 
+    document.getElementById(
+
+      "sendBtn"
+
+    );
 
   if(!validEmail(email)){
 
-    result(
+    showResult(
+
       "error",
+
       "Masukkan email yang valid."
+
     );
 
     return;
+
   }
 
+  button.classList.add(
 
-  button.classList.add("loading");
+    "loading"
 
-  button.textContent=
-    "⟳ SENDING...";
-
-  result(
-    "wait",
-    "Mengirim Magic Link..."
   );
 
+  button.textContent =
+
+    "⟳ MENGIRIM...";
+
+  showResult(
+
+    "wait",
+
+    "Mengirim link verifikasi..."
+
+  );
 
   try{
 
-    const response=
+    const response =
+
       await fetch(
-        "https://api.albyoffc.my.id/api/am/send?email="+
+
+        API_BASE +
+
+        "/api/am/send?email=" +
+
         encodeURIComponent(email),
+
         {
+
           method:"GET",
+
           headers:{
+
             "x-api-key":
-            "albymd_904ab2b54099f341aff0b1ad8a6600317401"
+
+              API_KEY
+
           }
+
         }
+
       );
 
+    const text =
 
-    const text=
       await response.text();
-
 
     if(!response.ok){
 
       throw new Error(
-        text || "Request gagal."
+
+        text ||
+
+        "Request gagal."
+
       );
 
     }
 
+    showResult(
 
-    result(
       "ok",
-      text ||
-      "✓ Magic Link berhasil dikirim. Silakan cek email."
-    );
 
+      text ||
+
+      "✓ Link verifikasi berhasil dikirim. Silakan cek Gmail, termasuk folder Spam."
+
+    );
 
   }catch(error){
 
-    result(
+    showResult(
+
       "error",
+
       error.message ||
-      "Gagal mengirim Magic Link."
+
+      "Gagal mengirim link verifikasi."
+
     );
 
   }
 
+  button.classList.remove(
 
-  button.classList.remove("loading");
+    "loading"
 
-  button.textContent=
-    "↗ SEND MAGIC LINK";
+  );
+
+  button.textContent =
+
+    "↗ KIRIM LINK VERIFIKASI";
 
 }
 
+/* =========================
 
-/* VERIFY */
+   VERIFY LINK
 
-async function verifyMagic(){
+========================= */
 
-  const email=
+async function verifyLink(){
+
+  const email =
+
     document
+
       .getElementById("email")
+
       .value
+
       .trim();
 
-  const url=
+  const url =
+
     document
-      .getElementById("magicUrl")
+
+      .getElementById(
+
+        "verificationUrl"
+
+      )
+
       .value
+
       .trim();
 
-  const button=
-    document.getElementById("verifyBtn");
+  const button =
 
+    document.getElementById(
+
+      "verifyBtn"
+
+    );
 
   if(!validEmail(email)){
 
-    result(
+    showResult(
+
       "error",
+
       "Masukkan email yang valid."
+
     );
 
     return;
-  }
 
+  }
 
   if(!url){
 
-    result(
+    showResult(
+
       "error",
-      "Masukkan Magic Link terlebih dahulu."
+
+      "Masukkan link verifikasi terlebih dahulu."
+
     );
 
     return;
+
   }
 
+  button.classList.add(
 
-  button.classList.add("loading");
+    "loading"
 
-  button.textContent=
-    "⟳ VERIFYING...";
-
-  result(
-    "wait",
-    "Memverifikasi Magic Link..."
   );
 
+  button.textContent =
+
+    "⟳ MEMVERIFIKASI...";
+
+  showResult(
+
+    "wait",
+
+    "Sedang memverifikasi link..."
+
+  );
 
   try{
 
-    const endpoint=
-      "https://api.albyoffc.my.id/api/am/verif?email="+
-      encodeURIComponent(email)+
-      "&url="+
+    const endpoint =
+
+      API_BASE +
+
+      "/api/am/verif?email=" +
+
+      encodeURIComponent(email) +
+
+      "&url=" +
+
       encodeURIComponent(url);
 
+    const response =
 
-    const response=
       await fetch(
+
         endpoint,
+
         {
+
           method:"GET",
+
           headers:{
+
             "x-api-key":
-            "albymd_904ab2b54099f341aff0b1ad8a6600317401"
+
+              API_KEY
+
           }
+
         }
+
       );
 
+    const text =
 
-    const text=
       await response.text();
-
 
     if(!response.ok){
 
       throw new Error(
-        text || "Verification gagal."
+
+        text ||
+
+        "Verifikasi gagal."
+
       );
 
     }
 
+    showResult(
 
-    result(
       "ok",
-      "✓ Verifikasi berhasil. Premium dikonfirmasi oleh API."
+
+      text ||
+
+      "✓ Verifikasi berhasil. Premium telah dikonfirmasi oleh sistem."
+
     );
 
-
     document
-      .getElementById("premiumActive")
-      .classList.add("show");
 
+      .getElementById(
+
+        "premiumActive"
+
+      )
+
+      .classList.add(
+
+        "show"
+
+      );
 
   }catch(error){
 
-    result(
+    showResult(
+
       "error",
+
       error.message ||
-      "Verification gagal."
+
+      "Verifikasi gagal."
+
     );
 
   }
 
+  button.classList.remove(
 
-  button.classList.remove("loading");
+    "loading"
 
-  button.textContent=
-    "✓ VERIFY LINK";
+  );
+
+  button.textContent =
+
+    "✓ VERIFIKASI LINK";
 
 }
 
+/* =========================
 
-/* ENTER */
+   ENTER EMAIL
+
+========================= */
 
 document
+
   .getElementById("email")
+
   .addEventListener(
+
     "keydown",
-    e=>{
-      if(e.key==="Enter"){
-        sendMagic();
+
+    function(e){
+
+      if(e.key === "Enter"){
+
+        sendVerification();
+
       }
+
     }
+
+  );
+
+/* =========================
+
+   CTRL + ENTER VERIFY
+
+========================= */
+
+document
+
+  .getElementById(
+
+    "verificationUrl"
+
+  )
+
+  .addEventListener(
+
+    "keydown",
+
+    function(e){
+
+      if(
+
+        (e.ctrlKey || e.metaKey) &&
+
+        e.key === "Enter"
+
+      ){
+
+        verifyLink();
+
+      }
+
+    }
+
   );
 
 </script>
 
 </body>
+
 </html>
